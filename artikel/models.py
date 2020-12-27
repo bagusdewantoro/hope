@@ -1,42 +1,83 @@
 from django.db import models
 from django.urls import reverse
 from django.utils.html import mark_safe # menampilkan gambar di admin
+import uuid # untuk generate id
 
-
-class Produk(models.Model):
-    nama = models.CharField(max_length=20)
-    deskripsi = models.TextField(max_length=100, help_text='tulis deskripsi singkat untuk produk ini')
-    foto1 = ImageField(upload_to='static/img', null=True, blank=True)
-    foto2 = ImageField(upload_to='static/img', null=True, blank=True)
+#=====================================================================
+class Product(models.Model):
+    name = models.CharField(max_length=20)
+    description = models.TextField(max_length=100, help_text='(max = 100 character)')
+    figure1 = ImageField(upload_to='static/img', null=True, blank=True)
+    figure2 = ImageField(upload_to='static/img', null=True, blank=True)
+    size = models.ManyToManyField(Size)
+    type = models.ForeignKey('Type', on_delete=models.SET_NULL, null=True)
 
     # tampilkan gambar di admin:
     @property
-    def foto1_preview(self):
-        if self.foto1:
-            return mark_safe('<img src="{}" width="auto" height="100" />'.format(self.foto1.url))
+    def figure1_preview(self):
+        if self.figure1:
+            return mark_safe('<img src="{}" width="auto" height="100" />'.format(self.figure1.url))
         return ''
 
     @property
-    def foto2_preview(self):
-        if self.foto2:
-            return mark_safe('<img src="{}" width="auto" height="100" />'.format(self.foto2.url))
+    def figure2_preview(self):
+        if self.figure2:
+            return mark_safe('<img src="{}" width="auto" height="100" />'.format(self.figure2.url))
         return ''
 
-    price = models.CharField(max_length=20)
-    size = models.ManyToManyField(Size)
-    tipe = models.ForeignKey('Tipe', on_delete=models.SET_NULL, null=True)
-
     class Meta:
-        ordering = ['nama']
-        verbose_name = 'Produk'
-        verbose_name_plural = 'Produk'
+        ordering = ['name']
+        verbose_name = 'Name'
+        verbose_name_plural = 'Name'
 
     def __str__(self):
-        return self.nama
+        return self.name
 
     def get_absolute_url(self):
-        return reverse('detail-produk', args=[str(self.id)])
+        return reverse('detail-product', args=[str(self.id)])
 
-
+#=====================================================================
 class Size(models.Model):
+    size_name = models.CharField(max_length=5)
+
+    class Meta:
+        ordering = ['size_name']
+        verbose_name = 'Size'
+        verbose_name_plural = 'Size'
+
+    def __str__(self):
+        return self.size_name
+
+#=====================================================================
+class Type(models.Model):
+    type_name = models.CharField(max_length=20)
+
+    class Meta:
+        ordering = ['type_name']
+        verbose_name = 'Type'
+        verbose_name_plural = 'Type'
+
+    def __str__(self):
+        return self.type_name
+
+#=====================================================================
+class InstanceProduct(models.Model):
+    id = models.UUIDField('Code', primary_key=True, default=uuid.uuid4)
+    product = models.ForeignKey('Product', verbose_name='Name', on_delete=models.SET_NULL, null=True)
+    production_date = models.DateField(null=True, blank=True)
+    quantity = models.IntegerField(default=0)
+    price = models.IntegerField(default=0)
+    sold = models.IntegerField(default=0)
+    # PR = CARI TENTANG STOCKLOG https://community.simpleisbetterthancomplex.com/t/how-to-add-and-substract-item-form-a-product-model/198
+    # setelah dapet di atas, bikin perkalian antara sold dan quantity
+
+    class Meta:
+        ordering = ['production_date']
+        verbose_name = 'Stock Log'
+        verbose_name_plural = 'Stock Log'
+
+    def __str__(self):
+        return f'{self.id} ({self.product.name})'
+
+#=====================================================================
     

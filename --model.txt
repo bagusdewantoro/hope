@@ -1,8 +1,7 @@
-PRODUK 
- nama (CharField)
- deskripsi (TextField)
+Product
+ name (CharField)
+ description(TextField)
  foto (ImageField)
- price (CharField)
  size (ManyToManyField)
  tipe (ForeignKey)
 
@@ -15,9 +14,10 @@ TIPE
 INSTANCE
  id (UUIDField)
  produk (ForeignKey)
- ready (DateField)
- pilihanStatus = ada, produksi
+ tanggal produksi (DateField)
+ jumlah = integerfield
  status (CharField)
+ price (IntegerField)
  
 
 
