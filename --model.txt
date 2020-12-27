@@ -19,6 +19,11 @@ INSTANCE
  status (CharField)
  price (IntegerField)
  
+superuser
+Username = admin
+Email = hopeprojectweb@gmail.com
+Django superuser Password = guitarra1
+gmail password = Guitarra-1
 
 
 
