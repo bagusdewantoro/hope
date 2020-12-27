@@ -1,0 +1,26 @@
+PRODUK 
+ nama (CharField)
+ deskripsi (TextField)
+ foto (ImageField)
+ price (CharField)
+ size (ManyToManyField)
+ tipe (ForeignKey)
+
+SIZE
+ size_name (CharField)
+ 
+TIPE
+ nama_tipe (CharField)
+
+INSTANCE
+ id (UUIDField)
+ produk (ForeignKey)
+ ready (DateField)
+ pilihanStatus = ada, produksi
+ status (CharField)
+ 
+
+
+
+ 
+ 
