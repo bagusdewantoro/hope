@@ -1,0 +1,1 @@
+buang index.html dan buang generic.html
