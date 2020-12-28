@@ -130,3 +130,6 @@ MEDIA_URL = '/media/'
 
 # Redirect ke home URL setelah login (Default redirects untuk /akun/profile/)
 LOGIN_REDIRECT_URL = '/'
+
+# Format ribuan pada Numbers:
+USE_THOUSAND_SEPARATOR = True

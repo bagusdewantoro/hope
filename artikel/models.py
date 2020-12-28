@@ -75,8 +75,6 @@ class StockLog(models.Model):
     quantity = models.IntegerField(default=0)
     price = models.IntegerField(default=0)
     sold = models.IntegerField(default=0)
-    # PR = CARI TENTANG STOCKLOG https://community.simpleisbetterthancomplex.com/t/how-to-add-and-substract-item-form-a-product-model/198
-    # setelah dapet di atas, bikin perkalian antara sold dan quantity
 
     class Meta:
         ordering = ['production_date', 'product', 'quantity', 'price', 'sold']
@@ -85,3 +83,11 @@ class StockLog(models.Model):
 
     def __str__(self):
         return f'{self.product.name} ({self.id})'
+
+    # method untuk mendapatkan sisa produk:
+    def remaining(self):
+        return self.quantity - self.sold
+
+    # method untuk mendapatkan revenue:
+    def revenue(self):
+        return self.quantity * self.price

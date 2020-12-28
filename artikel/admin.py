@@ -8,7 +8,8 @@ admin.site.register(Type)
 #===================================================================
 @admin.register(StockLog)
 class StockLogAdmin(admin.ModelAdmin):
-    list_display = ('product', 'production_date', 'quantity', 'sold', 'price')
+    list_display = ('product', 'production_date', 'price', 'quantity', 'sold', 'remaining', 'revenue')
+
 
 #===================================================================
 @admin.register(Product)
