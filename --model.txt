@@ -1,3 +1,10 @@
+refer to perpustakaan:
+Buku --> ForeignKey ke Penulis
+
+maka:
+Product --> ForeignKey ke Type
+
+
 Product
  name (CharField)
  description(TextField)

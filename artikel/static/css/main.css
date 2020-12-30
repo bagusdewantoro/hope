@@ -1,6 +1,3 @@
-@import url(font-awesome.min.css);
-/* Ini hanya untuk bagian grafis menu di kiri */
-
 html, head, body {
 	margin: 0;
 	padding: 0;
@@ -210,11 +207,6 @@ textarea {
 
 
 /* Gallery ==================================================================*/
-
-@keyframes gallery {
-	100% {
-		opacity: 1;		}
-}
 
 .gallery {
 	padding: 3.5em;
@@ -500,11 +492,7 @@ textarea {
 		width: 100%;
 	}
 
-		#main #header {
-			background: #e6e6e6;
-			padding: 1.15em 3.5em;
-			text-align: right;
-		}
+
 
 			#main #header h1 {
 				margin: 0;
