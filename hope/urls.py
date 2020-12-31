@@ -19,6 +19,9 @@ from django.views.generic import RedirectView
 from django.conf import settings
 from django.conf.urls.static import static
 
+admin.site.site_header = "Hope Project" # modify Admin Site Header
+admin.site.index_title = "Data & Administration" # modify Admin Index Title
+
 urlpatterns = [
     path('admin/', admin.site.urls),
     #path('artikel/', include('artikel.urls')),

@@ -18,7 +18,7 @@ class StockLogAdmin(admin.ModelAdmin):
 #===================================================================
 @admin.register(Product)
 class ProductAdmin(admin.ModelAdmin):
-    list_display = ('name', 'type', 'price', 'product_size', 'slug', 'figure1_preview', 'figure2_preview', 'available')
+    list_display = ('name', 'type', 'price', 'product_size', 'figure1_preview', 'figure2_preview', 'updated', 'available')
 
     # tampilkan gambar di admin:
     readonly_fields = ('figure1_preview', 'figure2_preview')

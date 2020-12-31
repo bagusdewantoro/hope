@@ -239,10 +239,9 @@ textarea {
 			}
 			.gallery .content .media img {
 				transition: transform 0.2s ease-in-out;
-				max-width: 100%;
-				height: auto;
+				width: auto;
+				height: 250px;
 				vertical-align: middle;
-
 			}
 			.gallery .content .media:hover img {
 				transform: scale(1.075);
@@ -265,6 +264,7 @@ textarea {
 	.icon > .label {
 		display: none;
 	}
+
 
 
 /* List ==================================================================*/

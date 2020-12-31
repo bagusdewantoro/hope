@@ -2,6 +2,7 @@ from django.db import models
 from django.urls import reverse
 from django.utils.html import mark_safe # menampilkan gambar di admin
 import uuid # untuk generate id
+from django.utils import timezone
 
 
 #=====================================================================
@@ -44,6 +45,8 @@ class Product(models.Model):
     type = models.ForeignKey('Type', on_delete=models.SET_NULL, null=True, related_name='products',)
     available = models.BooleanField(default=True)
     price = models.IntegerField(default=0)
+    created = models.DateTimeField(auto_now_add=True)
+    updated = models.DateTimeField(default=timezone.now)
 
     # tampilkan gambar di admin:
     @property
@@ -59,7 +62,7 @@ class Product(models.Model):
         return ''
 
     class Meta:
-        ordering = ['name', 'type']
+        ordering = ['created']
         index_together = (('id', 'slug'),)
         verbose_name = 'Name'
         verbose_name_plural = 'Name'
