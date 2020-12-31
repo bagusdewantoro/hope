@@ -208,6 +208,11 @@ textarea {
 
 /* Gallery ==================================================================*/
 
+@keyframes gallery {
+	100% {
+		opacity: 1;		}
+}
+
 .gallery {
 	padding: 3.5em;
 	position: relative;

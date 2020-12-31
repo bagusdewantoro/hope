@@ -3,18 +3,22 @@ from .models import Product, Size, Type, StockLog
 
 
 admin.site.register(Size)
-admin.site.register(Type)
+
+#===================================================================
+@admin.register(Type)
+class TypeAdmin(admin.ModelAdmin):
+    list_display = ('type_name', 'slug')
 
 #===================================================================
 @admin.register(StockLog)
 class StockLogAdmin(admin.ModelAdmin):
-    list_display = ('product', 'production_date', 'price', 'quantity', 'sold', 'remaining', 'revenue')
+    list_display = ('product', 'production_date', 'quantity', 'sold', 'price', 'revenue', 'remaining')
 
 
 #===================================================================
 @admin.register(Product)
 class ProductAdmin(admin.ModelAdmin):
-    list_display = ('name', 'type', 'product_size', 'figure1_preview', 'figure2_preview')
+    list_display = ('name', 'type', 'price', 'product_size', 'slug', 'figure1_preview', 'figure2_preview', 'available')
 
     # tampilkan gambar di admin:
     readonly_fields = ('figure1_preview', 'figure2_preview')

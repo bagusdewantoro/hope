@@ -18,7 +18,8 @@ class Size(models.Model):
 
 #=====================================================================
 class Type(models.Model):
-    type_name = models.CharField(max_length=20)
+    type_name = models.CharField(max_length=20, db_index=True)
+    slug = models.SlugField(max_length=20, unique=True, null=False, db_index=True)
 
     class Meta:
         ordering = ['type_name']
@@ -28,17 +29,21 @@ class Type(models.Model):
     def __str__(self):
         return self.type_name
 
-    #def get_absolute_url(self):
-        #return reverse('detail-type', args=[str(self.id)])
+    def get_absolute_url(self):
+        return reverse('artikel:product_list_by_type', args=[self.slug])
+
 
 #=====================================================================
 class Product(models.Model):
-    name = models.CharField(max_length=20)
+    name = models.CharField(max_length=20, db_index=True)
+    slug = models.SlugField(max_length=20, unique=True, null=False, db_index=True)
     description = models.TextField(max_length=100, help_text='(max = 100 character)')
-    figure1 = models.ImageField(upload_to='static/img', null=True, blank=True)
-    figure2 = models.ImageField(upload_to='static/img', null=True, blank=True)
+    figure1 = models.ImageField(upload_to='products', null=True, blank=True)
+    figure2 = models.ImageField(upload_to='products', null=True, blank=True)
     size = models.ManyToManyField(Size)
-    type = models.ForeignKey('Type', on_delete=models.SET_NULL, null=True)
+    type = models.ForeignKey('Type', on_delete=models.SET_NULL, null=True, related_name='products',)
+    available = models.BooleanField(default=True)
+    price = models.IntegerField(default=0)
 
     # tampilkan gambar di admin:
     @property
@@ -55,6 +60,7 @@ class Product(models.Model):
 
     class Meta:
         ordering = ['name', 'type']
+        index_together = (('id', 'slug'),)
         verbose_name = 'Name'
         verbose_name_plural = 'Name'
 
@@ -62,7 +68,8 @@ class Product(models.Model):
         return self.name
 
     def get_absolute_url(self):
-        return reverse('detail-product', args=[str(self.id)])
+        return reverse('artikel:product_detail',
+        args=[self.id, self.slug])
 
     # tambahan method untuk ManyToManyField = size
     def product_size(self):
@@ -76,16 +83,20 @@ class StockLog(models.Model):
     product = models.ForeignKey('Product', verbose_name='Name', on_delete=models.SET_NULL, null=True)
     production_date = models.DateField(null=True, blank=True)
     quantity = models.IntegerField(default=0)
-    price = models.IntegerField(default=0)
+
     sold = models.IntegerField(default=0)
 
     class Meta:
-        ordering = ['production_date', 'product', 'quantity', 'price', 'sold']
+        ordering = ['production_date', 'product', 'quantity', 'sold']
         verbose_name = 'Stock Log'
         verbose_name_plural = 'Stock Log'
 
     def __str__(self):
         return f'{self.product.name} ({self.id})'
+
+    # method untuk mengambil value dari CLASS LAIN (product) --> tapi harus ForeignKey dari class ini
+    def price(self):
+        return self.product.price if self.product else None
 
     # method untuk mendapatkan sisa produk:
     def remaining(self):
@@ -93,4 +104,4 @@ class StockLog(models.Model):
 
     # method untuk mendapatkan revenue:
     def revenue(self):
-        return self.quantity * self.price
+        return self.quantity * self.price()
