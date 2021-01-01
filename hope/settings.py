@@ -40,7 +40,11 @@ INSTALLED_APPS = [
     'django.contrib.staticfiles',
     'artikel',
     'django_icons',
+    'ckeditor',
+    'ckeditor_uploader',
 ]
+
+CKEDITOR_UPLOAD_PATH = 'uploads/' # ckeditor path
 
 MIDDLEWARE = [
     'django.middleware.security.SecurityMiddleware',

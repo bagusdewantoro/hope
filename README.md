@@ -9,6 +9,7 @@ Virtual environment will be located on pythonanywhere : /home/haumea/.virtualenv
 **A. Additional Installation:**
 1. pip install django-icons
 2. pip install pillow
+3. pip install django-ckeditor
 
 **B. Git Notes:**
 1. Clone to other device: **git clone https://github.com/bagusdewantoro/hope**

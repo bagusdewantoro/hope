@@ -19,14 +19,16 @@ from django.views.generic import RedirectView
 from django.conf import settings
 from django.conf.urls.static import static
 
-admin.site.site_header = "Hope Project" # modify Admin Site Header
-admin.site.index_title = "Data & Administration" # modify Admin Index Title
+admin.site.site_header = "HOPE PROJECT - Administration" # modify Admin Site Header
+admin.site.index_title = "God Bless Us" # modify Admin Index Title
 
 urlpatterns = [
     path('admin/', admin.site.urls),
     #path('artikel/', include('artikel.urls')),
     path('artikel/', include('artikel.urls', namespace='artikel')),
+    path('ckeditor/', include('ckeditor_uploader.urls')),
 ] + static(settings.STATIC_URL, document_root=settings.STATIC_ROOT)
 
 # tambahkan gambar
+urlpatterns += static(settings.STATIC_URL, document_root=settings.STATIC_ROOT)
 urlpatterns += static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)

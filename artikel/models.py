@@ -3,6 +3,7 @@ from django.urls import reverse
 from django.utils.html import mark_safe # menampilkan gambar di admin
 import uuid # untuk generate id
 from django.utils import timezone
+from ckeditor_uploader.fields import RichTextUploadingField # untuk ckeditor
 
 
 #=====================================================================
@@ -108,3 +109,14 @@ class StockLog(models.Model):
     # method untuk mendapatkan revenue:
     def revenue(self):
         return self.quantity * self.price()
+
+#=====================================================================
+class Awareness(models.Model):
+    title = models.CharField(max_length=50, db_index=True)
+    slug = models.SlugField(max_length=50, unique=True, null=False, db_index=True)
+    body = RichTextUploadingField()
+    created = models.DateTimeField(auto_now_add=True)
+    updated = models.DateTimeField(default=timezone.now)
+
+    def __str__(self):
+        return self.title
