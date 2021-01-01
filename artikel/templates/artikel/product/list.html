@@ -38,8 +38,8 @@
 									<a href="{{ product.get_absolute_url }}">
 										<img src="{{ product.figure1.url }}">
 									</a>
-									<a href="{{ product.get_absolute_url }}">{{ product.name }}</a>
-									${{ product.price }}
+									<p><a href="{{ product.get_absolute_url }}">{{ product.name }}</a><br>
+									Rp {{ product.price }}</p>
 								</div>
 
 				{% endfor %}
