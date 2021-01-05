@@ -34,3 +34,6 @@ Virtual environment will be located on pythonanywhere : /home/haumea/.virtualenv
 
 **E. Insert Slug on existing models and database:**
 https://www.codepolitan.com/cara-membuat-data-migration-dengan-django-5a749614988e4
+
+**F. 'Awareness' in artikel/urls.py (IMPORTANT!)**
+1. Its path must be written before 'product_list_by_type' and 'product_detail' because the url '' is related to product_list

@@ -111,9 +111,9 @@ class StockLog(models.Model):
         return self.quantity * self.price()
 
 #=====================================================================
-class PublishedManager(models.Manager):
-    def get_queryset(self):
-        return super(PublishedManager, self).get_queryset().filter(status='published')
+#class PublishedManager(models.Manager):
+#    def get_queryset(self):
+#        return super(PublishedManager, self).get_queryset().filter(status='published')
 
 class Awareness(models.Model):
     STATUS_CHOICES = (
@@ -134,8 +134,8 @@ class Awareness(models.Model):
     class Meta:
         ordering = ('-updated',)
 
-    objects = models.Manager()   # The default manager.
-    published = PublishedManager()   # Our custom manager.
+    objects = models.Manager() 
+#    published = PublishedManager()   # Our custom manager.
 
     def get_absolute_url(self):
         return reverse('artikel:awareness_detail',

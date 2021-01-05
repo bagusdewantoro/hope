@@ -1,18 +1,19 @@
 {% extends "base.html" %}
 
 {% block title %}
-	{% if awareness %}
-		{{ awareness.title }}
-	{% endif %}
+	Awareness
 {% endblock %}
 
 {% block content %}
   <h1>Awareness</h1>
-  {% for awareness in awarenesses %}
+
+  {% for apapun in awarenesses %} <!-- ambil attribute dari fungsi di views = awarenesses -->
     <h2>
-      <a href="{{ awareness.get_absolute_url }}">{{ awareness.title }}</a>
+      <a href="{{ apapun.get_absolute_url }}">{{ apapun.title }}</a>
     </h2>
-    <p>Published {{ awareness.updated }}</p>
-    {{ awareness.body|truncatewords:30|linebreaks }}
+    <p>Published {{ apapun.updated }}</p>
+    <p>{{ apapun.body|safe|truncatewords:15|linebreaks }}</p>
+		<!-- tambah |safe untuk data yang ditarik dari ckeditor -->
   {% endfor %}
+
 {% endblock %}

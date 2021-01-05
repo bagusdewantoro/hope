@@ -1,6 +1,13 @@
 from django.shortcuts import render, get_object_or_404
 from artikel.models import Product, Size, Type, StockLog, Awareness
 
+
+# Ini cuma Test aja...   ================================
+from django.http import HttpResponse
+def test(request):
+    text = """<h1>Tes Saja!</h1>"""
+    return HttpResponse(text)
+
 # PRODUCT ===============================================
 def product_list(request, type_slug=None):
     type = None
@@ -24,13 +31,14 @@ def product_detail(request, id, slug):
                     'artikel/product/detail.html',
                     {'product': product})
 
-
 # AWARENESS ===============================================
+
 def awareness_list(request):
-    awarenesses = Awareness.published.all()
+    awarenesses = Awareness.objects.all()
     return render(request,
                     'artikel/awareness/list.html',
-                    {'awarnesses': awarnesses})
+                    {'awarenesses': awarenesses}
+                    )
 
 def awareness_detail(request, year, month, day, awareness):
     awareness = get_object_or_404(Awareness, slug=awareness,
@@ -39,5 +47,5 @@ def awareness_detail(request, year, month, day, awareness):
                                     publish__month=month,
                                     publish__day=day)
     return render(request,
-                    'artikel/awareness/detail.html',
+                    'artikel/product/detail.html',
                     {'awareness': awareness})

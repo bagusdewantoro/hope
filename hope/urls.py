@@ -26,7 +26,7 @@ admin.site.index_title = "Admin" # modify Admin Index Title
 urlpatterns = [
     path('admin/', admin.site.urls),
     #path('artikel/', include('artikel.urls')),
-    path('artikel/', include('artikel.urls', namespace='artikel')),
+    path('artikel/', include('artikel.urls')),
     path('ckeditor/', include('ckeditor_uploader.urls')),
 ] + static(settings.STATIC_URL, document_root=settings.STATIC_ROOT)
 
