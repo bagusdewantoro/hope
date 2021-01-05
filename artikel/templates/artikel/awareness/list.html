@@ -1,0 +1,18 @@
+{% extends "base.html" %}
+
+{% block title %}
+	{% if awareness %}
+		{{ awareness.title }}
+	{% endif %}
+{% endblock %}
+
+{% block content %}
+  <h1>Awareness</h1>
+  {% for awareness in awarenesses %}
+    <h2>
+      <a href="{{ awareness.get_absolute_url }}">{{ awareness.title }}</a>
+    </h2>
+    <p>Published {{ awareness.updated }}</p>
+    {{ awareness.body|truncatewords:30|linebreaks }}
+  {% endfor %}
+{% endblock %}

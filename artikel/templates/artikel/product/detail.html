@@ -1,0 +1,16 @@
+{% extends "base.html" %}
+
+{% block title %}
+  {{ product.name }}
+{% endblock %}
+
+{% block content %}
+  <div>
+    <img src="{% if product.figure1 %}{{ product.figure1.url }}{% endif %}">
+      {% if product.figure2 %}<img src="{{ product.figure2.url }}">{% endif %}
+    <h1>{{ product.name }}</h1>
+    <h2><a href="{{ product.type.get_absolute_url }}">{{ product.type }}</a></h2>
+    <p>${{ product.price }}</p>
+      {{ product.description|linebreaks }}
+  </div>
+{% endblock %}

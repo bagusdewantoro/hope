@@ -111,12 +111,35 @@ class StockLog(models.Model):
         return self.quantity * self.price()
 
 #=====================================================================
+class PublishedManager(models.Manager):
+    def get_queryset(self):
+        return super(PublishedManager, self).get_queryset().filter(status='published')
+
 class Awareness(models.Model):
+    STATUS_CHOICES = (
+        ('draft', 'Draft'),
+        ('published', 'Published'),
+    )
     title = models.CharField(max_length=50, db_index=True)
     slug = models.SlugField(max_length=50, unique=True, null=False, db_index=True)
     body = RichTextUploadingField()
     created = models.DateTimeField(auto_now_add=True)
     updated = models.DateTimeField(default=timezone.now)
+    status = models.CharField(max_length=20, choices=STATUS_CHOICES,
+                            default='draft')
 
     def __str__(self):
         return self.title
+
+    class Meta:
+        ordering = ('-updated',)
+
+    objects = models.Manager()   # The default manager.
+    published = PublishedManager()   # Our custom manager.
+
+    def get_absolute_url(self):
+        return reverse('artikel:awareness_detail',
+                        args = [self.updated.year,
+                                self.updated.month,
+                                self.updated.day,
+                                self.slug])
